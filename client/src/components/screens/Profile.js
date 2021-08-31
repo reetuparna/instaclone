@@ -20,22 +20,17 @@ const Profile = () => {
     },[]);
     return (
         <div>
-            <div style={{
-                display: "flex",
-                justifyContent: "space-around",
-                margin: "18px 0px",
-                borderBottom: "1px solid grey"
-            }}>
-                <div>
-                    <img className="profile-pic" src={state?state.pic:""} />
-                </div>
-                <div>
-                    <h4>{state?state.name:'Loading'}</h4>
+            <div className="profile-header">
 
-                    <div style={{ display: "flex", justifyContent: "space-between", width: "108%" }}>
-                        <h5>{mypics.length} posts</h5>
-                        <h5>{state?state.followers.length:'0'} followers</h5>
-                        <h5>{state?state.following.length:'0'} following</h5>
+                    <img className="profile-pic" src={state?state.pic:""} />
+ 
+                <div className="details">
+                    <div className="user-name">{state?state.name:'Loading'}</div>
+                    <div className="user-email">{state?state.email:'Loading'}</div>
+                    <div className="user-activity-details">
+                        <div>{mypics.length} posts</div>
+                        <div>{state?state.followers.length:'0'} followers</div>
+                        <div>{state?state.following.length:'0'} following</div>
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@ const UserProfile = () => {
     const { state, dispatch } = useContext(UserContext);
     const { userid } = useParams()
 
-    const [showfollow,setShowFollow] = useState(state?!state.following.includes(userid):true)
+    const [showfollow, setShowFollow] = useState(state ? !state.following.includes(userid) : true)
 
     useEffect(() => {
         fetch(`/api/user/${userid}`, {
@@ -41,7 +41,7 @@ const UserProfile = () => {
                 });
                 localStorage.setItem('user', JSON.stringify(data));
                 setProfile(prevState => {
-                    
+
                     return {
                         ...prevState,
                         user: {
@@ -75,7 +75,7 @@ const UserProfile = () => {
                 });
                 localStorage.setItem('user', JSON.stringify(data));
                 setProfile(prevState => {
-                    const newFollowers = prevState.user.followers.filter(item=>item != data._id );
+                    const newFollowers = prevState.user.followers.filter(item => item != data._id);
                     return {
                         ...prevState,
                         user: {
@@ -92,44 +92,37 @@ const UserProfile = () => {
         <>
             {userProfile ?
                 <div>
-                    <div style={{
-                        display: "flex",
-                        justifyContent: "space-around",
-                        margin: "18px 0px",
-                        borderBottom: "1px solid grey"
-                    }}>
+                    <div className="profile-header">
+             
+                        <img className="profile-pic" src={userProfile.user.pic} />
+               
                         <div>
-                            <img className="profile-pic" src={userProfile.user.pic} />
-                        </div>
-                        <div>
-                            <h4>{userProfile.user.name}</h4>
-                            <h5>{userProfile.user.email}</h5>
+                            <div className="user-name">{userProfile.user.name}</div>
+                            <div className="user-email">{userProfile.user.email}</div>
 
-                            <div style={{ display: "flex", justifyContent: "space-between", width: "108%" }}>
-                                <h5>{userProfile.posts ? userProfile.posts.length : 0} posts</h5>
-                                <h5>{userProfile.user.followers? userProfile.user.followers.length: 0} followers</h5>
-                                <h5>{userProfile.user.following? userProfile.user.following.length: 0} following</h5>
+                            <div className="user-activity-details">
+                                <div>{userProfile.posts ? userProfile.posts.length : 0} posts</div>
+                                <div>{userProfile.user.followers ? userProfile.user.followers.length : 0} followers</div>
+                                <div>{userProfile.user.following ? userProfile.user.following.length : 0} following</div>
+                            </div>
 
-                                {showfollow ?
-                                    <button style={{
-                                        margin: "10px"
-                                    }} className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                            {showfollow ?
+                                    <button className="follow-btn" className="btn waves-effect waves-light #64b5f6 blue darken-1"
                                         onClick={() => followUser()}
                                     >
                                         Follow
                                     </button>
                                     :
-                                    <button
-                                        style={{
-                                            margin: "10px"
-                                        }}
+                                    <button className="unfollow-btn"
+                                        
                                         className="btn waves-effect waves-light #64b5f6 blue darken-1"
                                         onClick={() => unfollowUser()}
                                     >
                                         UnFollow
                                     </button>
+
                                 }
-                            </div>
+           
                         </div>
 
                     </div>

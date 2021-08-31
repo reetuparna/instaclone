@@ -115,7 +115,11 @@ const Home = () => {
                 data.map(item => {
                     return (
                         <div className="card home-card">
-                            <h5>
+                            <div className="post-header">
+                            <div>
+                                <img className="postedBy-image" src={item.postedBy.pic}></img>
+                            </div>
+                            <div className="postedBy-name">
                                 <Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile"  }>
                                     {item.postedBy.name}
                                 </Link>
@@ -123,7 +127,8 @@ const Home = () => {
                                     <i className="material-icons delete-post-icon" onClick={() => deletePost(item._id)}>delete</i> 
                                     :null
                                 }
-                            </h5>
+                        </div>
+                            </div>
                             <div className="card card-image">
                                 <img src={item.url} />
                             </div>

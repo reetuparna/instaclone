@@ -26,8 +26,9 @@ router.post('/api/createPost', requireLogin, (req, res) => {
 
 router.get('/api/allPosts', requireLogin, (req, res) => {
     Post.find()
-        .populate('postedBy', '_id name')
+        .populate('postedBy', '_id name pic')
         .populate('comments.postedBy', '_id name')
+        .sort('-createdAt')
         .then(posts => {
             res.json({posts});
         }).catch(err => {
@@ -38,6 +39,7 @@ router.get('/api/allPosts', requireLogin, (req, res) => {
 router.get('/api/myPosts', requireLogin, (req, res) => {
     Post.find({postedBy:req.user._id})
         .populate("postedBy", "_id name")
+        .sort('-createdAt')
         .then(myPosts => {
             res.json({myPosts});
         }).catch(err => {
@@ -115,7 +117,8 @@ router.delete('/api/delete/:postId',requireLogin,(req,res)=>{
 router.get('/api/subposts', requireLogin, (req, res) => {
     Post.find({postedBy: {$in: req.user.following}})
         .populate('postedBy', '_id name')
-        .populate('comments.postedBy', '_id name')
+        .populate('comments.postedBy', '_id name pic')
+        .sort('-createdAt')
         .then(posts => {
             res.json({posts})
         })

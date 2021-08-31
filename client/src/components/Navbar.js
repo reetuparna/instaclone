@@ -15,7 +15,7 @@ const NavBar = () => {
         <li><Link to="/subscribed">Subscribed Posts</Link></li>,
         <li>
           <button 
-                    className="btn waves-effect wave"
+                    className="btn waves-effect waves-light #64b5f6 blue darken-1"
                     onClick={()=>{
                       localStorage.clear();
                       dispatch({type:'CLEAR'});
@@ -35,7 +35,9 @@ const NavBar = () => {
   return (
     <nav>
       <div className="nav-wrapper white">
+        <div className="logo-wrapper">
         <Link to={state?"/":"/login"} className="brand-logo">Instagram</Link>
+        </div>
         <ul id="nav-mobile" className="right">
           {renderList()}
         </ul>
